@@ -14,10 +14,11 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/translation', [TranslationControler::class, 'index']);
+Route::resource(translations, TranslationControler::class);
 
-Route::post('/translation', [TranslationControler::class, 'store']);
- 
+//Route::get('/translation', [TranslationControler::class, 'index']);
+
+//Route::post('/translation', [TranslationControler::class, 'store']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

@@ -44,7 +44,7 @@ class TranslationControler extends Controller
      */
     public function show($id)
     {
-        //
+        return Translation::find($id);
     }
 
     /**
