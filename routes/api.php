@@ -1,6 +1,6 @@
 <?php
-
-use App\Http\Controllers\TranslationControler;
+use App\Http\Controllers\TranslationController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,13 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //Public Routes
-Route::get('/translations', [TranslationControler::class, 'index']);
-Route::get('/translations/{id}', [TranslationControler::class, 'show']);
-Route::get('/translations/serach/{name}', [TranslationControler::class, 'serach']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::get('/translations', [TranslationController::class, 'index']);
+Route::get('/translations/{id}', [TranslationController::class, 'show']);
+Route::get('/translations/serach/{name}', [TranslationController::class, 'serach']);
 
 //Protected Routes - Sanctum
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::post('/translations', [TranslationControler::class, 'store']);
-    Route::put('/translations/{id}', [TranslationControler::class, 'update']);
-    Route::delete('/translations/{id}', [TranslationControler::class, 'delete']);
+    Route::post('/translations', [TranslationController::class, 'store']);
+    Route::put('/translations/{id}', [TranslationController::class, 'update']);
+    Route::delete('/translations/{id}', [TranslationController::class, 'delete']);
 });
