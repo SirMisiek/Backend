@@ -25,4 +25,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/translations', [TranslationController::class, 'store']);
     Route::put('/translations/{id}', [TranslationController::class, 'update']);
     Route::delete('/translations/{id}', [TranslationController::class, 'delete']);
+    Route::post('/logout', [AuthController::class, 'logout']);
 });
