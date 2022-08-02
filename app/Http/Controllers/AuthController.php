@@ -30,7 +30,31 @@ class AuthController extends Controller
         ];
 
         return response($response, 201);
+    }
+        public function login(Request $request) {
+            $fields = $request->validate([
+                'email' => 'required|string',
+                'password' => 'required|string'
+            ]);
+    
+            $user = User::where('email', $fields['email'])->first();
 
+            if(!$user || !Hash::check($fields['password'], $user->password)) {
+
+                return response([
+                    'message' => 'Błędny login lub hasło.'
+                ], 401);
+            }
+    
+            $token = $user->createToken('apptokenprotected')->plainTextToken;
+    
+            $response = [
+                'user'=> $user,
+                'token' => $token
+            ];
+    
+            return response($response, 201);
+        }
         public function logout(Response $request) {
             auth()->user()->tokens()->delete();
 
@@ -39,4 +63,4 @@ class AuthController extends Controller
             ];
         }
     }
-}
+

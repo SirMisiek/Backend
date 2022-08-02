@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 //Public Routes
 Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 Route::get('/translations', [TranslationController::class, 'index']);
 Route::get('/translations/{id}', [TranslationController::class, 'show']);
 Route::get('/translations/serach/{name}', [TranslationController::class, 'serach']);
