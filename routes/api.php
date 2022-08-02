@@ -14,12 +14,14 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::resource(translations, TranslationControler::class);
+//Public Routes
+Route::get('/translations', [TranslationControler::class, 'index']);
+Route::get('/translations/{id}', [TranslationControler::class, 'show']);
+Route::get('/translations/serach/{name}', [TranslationControler::class, 'serach']);
 
-//Route::get('/translation', [TranslationControler::class, 'index']);
-
-//Route::post('/translation', [TranslationControler::class, 'store']);
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+//Protected Routes - Sanctum
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('/translations', [TranslationControler::class, 'store']);
+    Route::put('/translations/{id}', [TranslationControler::class, 'update']);
+    Route::delete('/translations/{id}', [TranslationControler::class, 'delete']);
 });

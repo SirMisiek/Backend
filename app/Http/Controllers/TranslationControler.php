@@ -27,10 +27,10 @@ class TranslationControler extends Controller
     {
 
         $request->validate([
-            'name' => required,
-            'slug' => required,
-            'price'=> required,
-            'timetocomplete' => required,
+            'name' => 'required',
+            'slug' => 'required',
+            'price' => 'required',
+            'timetocomplete' => 'required',
         ]);
 
         return Translation::create($request->all());
@@ -56,7 +56,21 @@ class TranslationControler extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $translation = Translation::find($id);
+        $translation->update($request->all());
+        return $translation;
+    }
+
+
+ /**
+     * Remove the specified resource from storage.
+     *
+     * @param  str  $name
+     * @return \Illuminate\Http\Response
+     */
+    public function serach($name)
+    {
+        return Translation::where('name', 'like', '%'.$name.'%')->get();
     }
 
     /**
@@ -67,6 +81,6 @@ class TranslationControler extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Translation::destroy($id);
     }
 }
